@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#locate /etc/rc.local
+bash /root/scripts/hardware/fan.sh&
+iptables-restore < /etc/iptables.ipv4.nat
+
+exit 0

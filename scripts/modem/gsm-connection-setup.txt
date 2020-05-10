@@ -1,0 +1,5 @@
+sudo nmcli connection edit type gsm con-name "My gprs connection"
+set gsm.apn internet.tmobile.cz
+set connection.autoconnect no
+
+sudo nmcli device connect ttyUSB2
