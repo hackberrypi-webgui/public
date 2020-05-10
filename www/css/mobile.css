@@ -1,0 +1,98 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:115%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+#ajax-spinner {            
+    width:320px;
+    height:320px;
+}
+
+html{
+    max-width:640px;
+}
+
+
+.mainPanel{
+    height:90px;
+}
+
+.r3button{
+    font-size:220%;
+    font-weight: bold;
+    padding-right:17px;
+    padding-left:17px;
+}
+
+.mainWindow{
+    top:40px;
+}
+
+.mob-per-50{
+    width:50%;
+    display:inline-block;
+    float:left;
+}
+
+.odeslat{
+    float:right;
+}
+
+/* společný */
+.r3button .menu{   
+    font-size:80%;    
+    font-weight:normal;
+}
+.r3button:hover .menu{    
+    width:50%;    
+}
+
+.menuItem{
+    width:450px;
+}
+
+.pagination {
+    margin-top:30px;
+}
+
+.mainWindow{
+    margin-top:45px;
+}
+
+fieldset.fieldset{
+    display:inline-block;
+    position:relative;
+    box-sizing:border-box;
+    padding:20px;
+    text-align:center;
+
+}
+input[type="submit"],a.button{
+    width:100%;
+    float:left;
+    clear:both;
+    display:inline-block;
+    position:relative;
+    height:120px;
+    margin-bottom:20px;
+    box-sizing:border-box;
+    font-size:50px;
+    text-align:center;
+    line-height:105px;
+}

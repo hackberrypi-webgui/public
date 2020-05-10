@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="cz">
+    <head>
+        {include '..\..\sharedTemplates\head.latte'}
+        <link rel="stylesheet" media="screen" href="{$basePath}/css/homepage/style.css?{filemtime('css/homepage/style.css')}">
+        <title>Hacking</title>
+    </head>
+    <body>
+        {snippet flashMessage}
+            <div id="infoMessages">
+                {foreach $flashes as $flash}<div class="flash {$flash->type}">{$flash->message}</div>{/foreach}
+            </div>
+            <script>
+                $(function () {
+                    setTimeout(function () {
+                        $("#infoMessages .flash").fadeOut(800, function () {
+                            (this).remove();
+                        });
+                    }, 3000);
+                });
+            </script>
+        {/snippet}
+
+
+        {include '..\..\sharedTemplates\menu.latte'}
+
+
+
+        <div class="mainWindow">
+            <div id = "contentModal" class="content">
+                {block content}
+            </div>
+        </div>
+
+    </body>
+
+    {include '..\..\sharedTemplates\foot.latte'}
+
+</html>

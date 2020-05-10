@@ -1,0 +1,29 @@
+#
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# https://nette.org/security-warning
+#
+parameters:
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+services:
+	- App\Forms\FormFactory
+	- App\Forms\UploadFileFormFactory
+	- App\Forms\FilterFormFactory
+	- App\Forms\WifiListFormFactory
+	- App\Service\WifiListService
+	- App\CodegeneratorModule\Service\CodegeneratorService
+
+	router: App\RouterFactory::createRouter
+
+extensions:
+	visualPaginator: IPub\VisualPaginator\DI\VisualPaginatorExtension

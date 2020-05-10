@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Model;
+
+use Nette;
+
+
+class __TABLENAME__Model extends BaseModel
+{
+	use Nette\SmartObject;
+
+    protected $tableContent = [
+    //TABLECONTENT
+    ];
+
+    //GETSET
+
+
+	public function __construct($arr = null)
+	{
+	    parent::__construct($arr);
+
+		$this->setIdName('__PRIMARYKEY__');
+		$this->setTableName('_TABLENAME_');
+	}
+
+
+
+}
+

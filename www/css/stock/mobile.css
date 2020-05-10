@@ -1,0 +1,100 @@
+
+
+.stockItem{
+    width:100%;
+    height:auto;
+    box-sizing:border-box;
+}
+
+.stockItem .foto{
+    height:auto;
+    width:100%;
+}
+
+.stockItem .foto a{
+    height:auto;
+    overflow:visible;
+    width:100%;
+    border: none;
+}
+
+.stockItem .foto a img{
+    width:70%;
+}
+
+.stockItem .name{
+   /*font-size:170%;*/
+}
+
+
+#frm-filterStockForm input,#frm-filterStockForm textarea,#frm-filterStockForm select,#frm-filterStockForm option{
+    display:inline-block;
+    width:100%;
+    min-height:90px;
+}
+
+.windowTopMenu{
+ height:110px;
+ font-size: 170%;
+}
+
+.windowTopMenu ul{
+    width:auto;
+    margin-top:0px;
+}
+
+.windowTopMenu ul li a,
+.windowTopMenu ul li span,
+.windowTopMenu ul li{
+    font-size:70px;
+}
+
+.windowTopMenu .navigation a{
+padding: 0px 75px 0px 75px;
+}
+
+.windowTopMenu div{
+    margin-right:30px;
+}
+
+.windowTopMenu div:hover ul{
+    height:auto;
+    border:none;
+    background-color:rgb(240,240,240);
+}
+.windowTopMenu ul li{
+    padding:1px 20px 1px 25px;
+}
+
+.editRow label, .editRow input,.editRow select, .editRow textarea{
+    display:inline-block;
+    width:100%;
+    padding:2px;
+}
+
+#save{
+    display:none;
+}
+
+.editRow label{
+    font-size:25px;
+    float: left;
+}
+
+.lb-close{
+    position:absolute;
+    top:0px;
+    right:0px;
+    margin-top:20px;
+    margin-right:20px;
+    width:50px;
+    height:50px;
+    background-size:contain;
+}
+
+
+
+/*jen pro mobily*/
+@media only screen and (max-device-width: 640px){
+
+}

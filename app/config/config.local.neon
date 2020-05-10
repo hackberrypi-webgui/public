@@ -1,0 +1,12 @@
+parameters:
+
+
+database:
+	dsn: 'mysql:host=mariadb;dbname=hacking'
+	user: hacker
+	password: rekcah
+	options:
+		lazy: yes
+
+extensions:
+    visualPaginator: IPub\VisualPaginator\DI\VisualPaginatorExtension

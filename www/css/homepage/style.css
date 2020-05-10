@@ -1,0 +1,14 @@
+#frm-signInForm table{
+    padding:15px;
+    background-color: #f8f8f8;
+    border:1px solid #e1e1e1;
+}
+
+.podnazev{
+    width:100%;
+    text-align:center;
+    color:#333;
+    display:inline-block;
+    font-size:100%;
+    margin-bottom:35px;
+}

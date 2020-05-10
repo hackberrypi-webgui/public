@@ -1,0 +1,7 @@
+div{
+    border:1px dashed black;;
+    min-width:50px;
+    min-height:50px;
+    display:inline-block;
+    position:relative;
+}

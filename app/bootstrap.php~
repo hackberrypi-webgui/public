@@ -1,0 +1,28 @@
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$configurator = new Nette\Configurator;
+
+$configurator->setDebugMode('192.168.0.151'); // enable for your remote IP
+$configurator->enableTracy(__DIR__ . '/../log');
+
+$configurator->setTimeZone('Europe/Prague');
+$configurator->setTempDirectory(__DIR__ . '/../temp');
+
+//$configurator->createRobotLoader()
+//	->addDirectory(__DIR__)
+//	->register();
+
+$loader = $configurator->createRobotLoader();
+$loader->addDirectory(__DIR__);
+$loader->register();
+
+
+$configurator->addConfig(__DIR__ . '/config/config.neon');
+$configurator->addConfig(__DIR__ . '/config/config.local.neon');
+
+
+$container = $configurator->createContainer();
+
+return $container;
