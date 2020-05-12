@@ -2,9 +2,9 @@ parameters:
 
 
 database:
-	dsn: 'mysql:host=mariadb;dbname=hacking'
-	user: hacker
-	password: rekcah
+	dsn: 'mysql:host=127.0.0.1;dbname=hackberry'
+	user: root
+	password: toor
 	options:
 		lazy: yes
 
