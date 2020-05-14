@@ -1,0 +1,174 @@
+{block content}
+
+<style>
+    .filterButton{
+        margin-top:2px;
+    }
+</style>
+
+    {snippet obsah}        
+        <a class="ajax button newItem" n:href="editWifiList!, id=>null">New Wifi AP</a>
+        <a class="ajax button newItem" n:href="importWifiList!, id=>null">Import Wifi list</a>
+{*        <a class="ajax button newItem" n:href="showListOnMap!, where=>json_encode($where)">Show list on map</a>*}
+        <a class="button newItem" n:href="showMap, where=>json_encode($where)">Show list on map</a>
+        
+        <fieldset class="fieldset"> 
+        {form filterForm}
+            <table>
+            <tr>
+                <th style="padding-right:5px;" n:foreach="$form->controls as $name => $field">{label $name /}</th>
+            </tr>
+            <tr>
+                <td style="padding-right:5px;" n:foreach="$form->controls as $name => $field">{input $name}</td>
+            </tr>
+            </table>
+        {/form}
+        </fieldset>
+        {control visualPaginator}
+
+        <fieldset class="fieldset"> 
+    <h1>List of localizated Wifi ({count($list)})</h1>
+    <table class="tableOne">
+        <thead>
+        <tr>         
+            <th></th>
+            <th>Actions</th>
+            <th>unixTime</th>
+            <th>bssid</th>
+            <th>ssid</th>
+            <th>longitude</th>
+            <th>latitude</th>
+            <th>gpsAccurancy</th>
+            <th>apCapabilities</th>
+            <th>channel</th>
+            <th>frequency</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $list as $item}
+            <tr>
+                <td>{$iterator->getCounter()}</td>
+                <td><a class="ajax" n:href="editWifiList!, id=>$item->idWifiList"><img
+                                src="{$basePath}/images/icon/accessories-text-editor.png"/></a>
+                    <a class="delete" n:href="deleteWifiList!, id=>$item->idWifiList"><img
+                                src="{$basePath}/images/icon/edit-clear.png"/></a>
+                </td>           
+                <td>{$item->unixTime}</td>
+                <td>{$item->bssid}</td>
+                <td>{$item->ssid}</td>
+                <td>{$item->longitude}</td>
+                <td>{$item->latitude}</td>
+                <td>{$item->gpsAccurancy}</td>
+                <td>{$item->apCapabilities}</td>
+                <td>{$item->channel}</td>
+                <td>{$item->frequency}</td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    <br/>
+</fieldset>
+        
+        <script>
+            $(function(){
+                $(".delete").click(function(){
+                    if (!confirm('Opravdu si přejete položku smazat?')) return false;
+                });
+            });
+        </script>
+
+{/snippet}
+
+{snippet editWifiList}
+    {ifset $editWifiList}
+        <div id="editWifiList" class="modalDisable">
+           {include wifiEditForm.latte}
+        </div>
+        <script>
+            $(function(){                
+                openModalWindow("#editWifiList");
+            });            
+        </script>
+    {/ifset}
+{/snippet}
+
+{snippet importWifiList}
+    {ifset $importWifiList}
+        <div id="importWifiList" class="modalDisable">
+            {control uploadFileForm}
+        </div>
+        <script>
+            $(function(){                
+                openModalWindow("#importWifiList",450,150);
+            });            
+        </script>
+    {/ifset}
+{/snippet}
+
+{snippet showMap}
+        {ifset $showMap}
+        <div id="showMap" style="overflow:hidden;">           
+            	<div id="mapa" style="width:100%; height:800px; "></div>                
+	<script type="text/javascript">
+            var obrazek = "https://api.mapy.cz/img/api/marker/drop-red.png";
+
+            var m = new SMap(JAK.gel("mapa"));
+            m.addControl(new SMap.Control.Sync()); /* Aby mapa reagovala na změnu velikosti průhledu */
+            m.addDefaultLayer(SMap.DEF_BASE).enable(); /* Turistický podklad */
+            var mouse = new SMap.Control.Mouse(SMap.MOUSE_PAN | SMap.MOUSE_WHEEL | SMap.MOUSE_ZOOM); /* Ovládání myší */
+            m.addControl(mouse); 
+
+            var dataJson = {$pointlist}               
+            var data = (JSON.parse(dataJson));   
+            
+            console.log(data);
+            var znacky = [];
+            var souradnice = [];
+
+            for (var name in data) { /* Vyrobit značky */
+                var c = SMap.Coords.fromWGS84(data[name][0]); /* Souřadnice značky, z textového formátu souřadnic */
+
+                var options = {
+                    url:obrazek,
+                    title:name,
+                    anchor: { left:10, bottom: 1}  /* Ukotvení značky za bod uprostřed dole */
+                }
+
+                var card = new SMap.Card();
+                card.getHeader().innerHTML = "<strong>"+name+"</strong>";
+                card.getBody().innerHTML = data[name][1];
+            
+                var znacka = new SMap.Marker(c, null, options);
+                znacka.decorate(SMap.Marker.Feature.Card, card);
+                souradnice.push(c);
+                znacky.push(znacka);
+            }
+
+            /* Křivoklát ukotvíme za střed značky, přestože neznáme její velikost */
+            var options = {
+                anchor: { left:0.5, top:0.5}
+            }
+            znacky[0].decorate(SMap.Marker.Feature.RelativeAnchor, options);
+
+            var vrstva = new SMap.Layer.Marker();     /* Vrstva se značkami */
+            m.addLayer(vrstva);                          /* Přidat ji do mapy */
+            vrstva.enable();                         /* A povolit */
+            for (var i=0;i<znacky.length;i++) {
+                vrstva.addMarker(znacky[i]);
+            }
+
+            var cz = m.computeCenterZoom(souradnice); /* Spočítat pozici mapy tak, aby značky byly vidět */
+            m.setCenterZoom(cz[0], cz[1]);        
+	</script>        
+        </div>
+            
+        <script>
+            $(function(){                
+                openModalWindow("#showMap",750,450);
+            });            
+        </script>
+        
+
+
+    {/ifset}
+{/snippet}

@@ -1,39 +1,31 @@
 <!DOCTYPE html>
-<html lang="cz">
+<html>
     <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Wifi-tracker</title>
+
         {include '..\..\sharedTemplates\head.latte'}
-        <link rel="stylesheet" media="screen" href="{$basePath}/css/homepage/style.css?{filemtime('css/homepage/style.css')}">
-        <title>Hacking</title>
     </head>
-    <body>
+    <body id="main-container" class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">Hackberry</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+                <i class="fas fa-bars"></i></button><!-- Navbar Search-->
+        </nav>
+        <div id="layoutSidenav">
+
+        {include '..\..\sharedTemplates\navigation.latte'}
+
         {snippet flashMessage}
-            <div id="infoMessages">
-                {foreach $flashes as $flash}<div class="flash {$flash->type}">{$flash->message}</div>{/foreach}
-            </div>
-            <script>
-                $(function () {
-                    setTimeout(function () {
-                        $("#infoMessages .flash").fadeOut(800, function () {
-                            (this).remove();
-                        });
-                    }, 3000);
-                });
-            </script>
+            {include '..\..\sharedTemplates\flashMessage.latte'}
         {/snippet}
 
+        {include #content}
 
-        {include '..\..\sharedTemplates\menu.latte'}
-
-
-
-        <div class="mainWindow">
-            <div id = "contentModal" class="content">
-                {block content}
-            </div>
+        {include '..\..\sharedTemplates\foot.latte'}
         </div>
-
     </body>
-
-    {include '..\..\sharedTemplates\foot.latte'}
-
 </html>

@@ -1,0 +1,38 @@
+
+    <meta charset="utf-8">     
+{*    <link rel="stylesheet" media="screen" href="{$basePath}/css/reset.css?{filemtime('css/reset.css')}"> *}
+
+{*    Bootstrap*}
+    <link rel="stylesheet" media="screen" href="{$basePath}/css/bootstrap-reboot.min.css?{filemtime('css/lightbox.css')}">
+    <link rel="stylesheet" media="screen" href="{$basePath}/css/bootstrap.min.css?{filemtime('css/lightbox.css')}">
+    <link rel="stylesheet" media="screen" href="{$basePath}/css/bootstrap-grid.min.css?{filemtime('css/lightbox.css')}">
+    <link rel="stylesheet" media="screen" href="{$basePath}/bootstrap-theme/css/style.css?{filemtime('css/lightbox.css')}">
+
+{*    <link rel="stylesheet" media="screen" href="{$basePath}/css/lightbox.css?{filemtime('css/lightbox.css')}">*}
+{*    <link rel="stylesheet" media="screen" href="{$basePath}/css/chosen.css?{filemtime('css/chosen.css')}">*}
+
+    {if $devel==true}<link rel="stylesheet" media="screen" href="{$basePath}/css/devel.css?{filemtime('css/devel.css')}">{/if}
+
+    <link rel="stylesheet" media="screen" href="{$basePath}/css/jquery-ui.css?{filemtime('css/jquery-ui.css')}">
+    <link rel="stylesheet" media="screen" href="{$basePath}/css/style.css?{filemtime('css/style.css')}">
+    
+    <script type="text/javascript" src="{$basePath}/js/jquery-3.2.1.min.js?{filemtime('js/jquery-3.2.1.min.js')}"></script>
+    <script type="text/javascript" src="{$basePath}/js/jquery-ui.min.js?{filemtime('js/jquery-ui.min.js')}"></script>
+{*    <script type="text/javascript" src="{$basePath}/js/lightbox.js?{filemtime('js/lightbox.js')}"></script>*}
+{*    <script type="text/javascript" src="{$basePath}/js/chosen.jquery.js?{filemtime('js/chosen.jquery.js')}"></script>*}
+    <script type="text/javascript" src="{$basePath}/js/jquery.dialogextend.js?{filemtime('js/bootstrap.min.js')}"></script>
+
+    <script type="text/javascript" src="{$basePath}/js/jquery.dialogextend.js?{filemtime('js/jquery.dialogextend.js')}"></script>
+    <script type="text/javascript" src="{$basePath}/js/nette.ajax.js?{filemtime('js/nette.ajax.js')}"></script>
+    <script type="text/javascript" src="{$basePath}/js/spinner.ajax.js?{filemtime('js/spinner.ajax.js')}"></script>
+
+    <script type="text/javascript" src="{$basePath}/js/main.js?{filemtime('js/main.js')}"></script>
+    <script type="text/javascript" src="{$basePath}/js/modalWindow.js?{filemtime('js/modalWindow.js')}"></script>
+    <link rel="stylesheet" media="screen" href="{$basePath}/bootstrap-theme/js/script.js?{filemtime('css/lightbox.css')}">
+    
+    
+    <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
+    <script type="text/javascript">Loader.load()</script>
+
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>

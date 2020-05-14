@@ -1,0 +1,12 @@
+<div id="infoMessages">
+    {foreach $flashes as $flash}<div class="flash {$flash->type}">{$flash->message}</div>{/foreach}
+</div>
+<script>
+  $(function () {
+    setTimeout(function () {
+      $("#infoMessages .flash").fadeOut(800, function () {
+        (this).remove();
+      });
+    }, 3000);
+  });
+</script>
