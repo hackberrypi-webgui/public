@@ -1,131 +1,117 @@
 {block content}
 
-<div id="layoutSidenav_content">
-	<main>
-		<div class="container-fluid">
-			<div class="row mt-4">
-				<div class="col-xl-12 mb-4">
-					<div class="btn-toolbar" role="toolbar" aria-label="Actions">
-						<div class="btn-group" role="group" aria-label="First group">
-							<a class="btn btn-primary mr-2" n:href="editWifiList, id=>null">New Wifi AP</a>
-							<a class="btn btn-primary mr-2" n:href="importWifiList, id=>null">Import Wifi list</a>
-							<a class="btn btn-primary" n:href="showMap, where=>json_encode($where)">Show list on map</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xl-12">
-					<div class="card mb-4">
-						<div class="card-header"><i class="fas fa-filter mr-1"></i>Filters</div>
-						<div class="card-body">
-                            {form filterForm}
-								<div class="form-group">
-                                    {*									<label class="small mb-1" n:foreach="$form->controls as $name => $field">{label $name /}{input $name class=>"form-control py-4"}</label>*}
-									<div class="fluid">
-										<div class="row">
-											<div class="col-sm-3">
-                                                {label ssid class => 'small mb-1' /}
-                                                {input ssid class => 'form-control'}
-											</div>
-
-											<div class="col-sm-3">
-                                                {label bssid class => 'small mb-1' /}
-                                                {input bssid class => 'form-control'}
-											</div>
-
-											<div class="col-sm-3">
-                                                {label apCapabilities class => 'small mb-1' /}
-                                                {input apCapabilities class => 'form-control'}
-											</div>
-
-											<div class="col-sm-3">
-                                                {input send class => 'btn btn-primary mt-4'}
-											</div>
-										</div>
-									</div>
-
-								</div>
-                            {/form}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card mb-4">
-				<div class="card-header"><i class="fas fa-table mr-1"></i>DataTable Example</div>
-				<div class="card-body">
-                    {control visualPaginator}
-
-					<div class="table-responsive">
-						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-							<thead>
-							<tr>
-								<th></th>
-								<th>Actions</th>
-								<th>unixTime</th>
-								<th>bssid</th>
-								<th>ssid</th>
-								<th>longitude</th>
-								<th>latitude</th>
-								<th>gpsAccurancy</th>
-								<th>apCapabilities</th>
-								<th>channel</th>
-								<th>frequency</th>
-							</tr>
-							</thead>
-							<tfoot>
-							<tr>
-								<th></th>
-								<th>Actions</th>
-								<th>unixTime</th>
-								<th>bssid</th>
-								<th>ssid</th>
-								<th>longitude</th>
-								<th>latitude</th>
-								<th>gpsAccurancy</th>
-								<th>apCapabilities</th>
-								<th>channel</th>
-								<th>frequency</th>
-							</tr>
-							</tfoot>
-							<tbody>
-                            {foreach $list as $item}
-								<tr>
-									<td>{$iterator->getCounter()}</td>
-									<td>
-{*										<a class="ajax" n:href="editWifiList, id=>$item->idWifiList"><img*}
-{*													src="{$basePath}/images/icon/accessories-text-editor.png"/></a>*}
-{*										<a class="delete" n:href="deleteWifiList, id=>$item->idWifiList"><img*}
-{*													src="{$basePath}/images/icon/edit-clear.png"/></a>*}
-									</td>
-									<td>{$item->unixTime}</td>
-									<td>{$item->bssid}</td>
-									<td>{$item->ssid}</td>
-									<td>{$item->longitude}</td>
-									<td>{$item->latitude}</td>
-									<td>{$item->gpsAccurancy}</td>
-									<td>{$item->apCapabilities}</td>
-									<td>{$item->channel}</td>
-									<td>{$item->frequency}</td>
-								</tr>
-                            {/foreach}
-							</tbody>
-						</table>
+<main>
+	<div class="container-fluid">
+		<div class="row mt-4">
+			<div class="col-xl-12 mb-4">
+				<div class="btn-toolbar" role="toolbar" aria-label="Actions">
+					<div class="btn-group" role="group" aria-label="First group">
+						<a class="btn btn-primary mr-2" n:href="editWifiList, id=>null">New Wifi AP</a>
+						<a class="btn btn-primary mr-2" n:href="importWifiList, id=>null">Import Wifi list</a>
+						<a class="btn btn-primary" n:href="showMap, where=>json_encode($where)">Show list on map</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	</main>
-{*	<footer class="py-4 bg-light mt-auto">*}
-{*		<div class="container-fluid">*}
-{*			<div class="d-flex align-items-center justify-content-between small">*}
-{*				<div class="text-muted">Copyright &copy; Your Website 2019</div>*}
-{*				<div>*}
-{*					<a href="#">Privacy Policy</a>*}
-{*					&middot;*}
-{*					<a href="#">Terms &amp; Conditions</a>*}
-{*				</div>*}
-{*			</div>*}
-{*		</div>*}
-{*	</footer>*}
-</div>
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="card mb-4">
+					<div class="card-header"><i class="fas fa-filter mr-1"></i>Filters</div>
+					<div class="card-body">
+                        {form filterForm}
+							<div class="form-group">
+								<div class="fluid">
+									<div class="row">
+										<div class="col-sm-3">
+                                            {label ssid class => 'small mb-1' /}
+                                            {input ssid class => 'form-control'}
+										</div>
+
+										<div class="col-sm-3">
+                                            {label bssid class => 'small mb-1' /}
+                                            {input bssid class => 'form-control'}
+										</div>
+
+										<div class="col-sm-3">
+                                            {label apCapabilities class => 'small mb-1' /}
+                                            {input apCapabilities class => 'form-control'}
+										</div>
+
+										<div class="col-sm-3">
+                                            {input send class => 'btn btn-primary mt-4'}
+										</div>
+									</div>
+								</div>
+
+							</div>
+                        {/form}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card mb-4">
+			<div class="card-header"><i class="fas fa-table mr-1"></i>Wifi list</div>
+			<div class="card-body">
+                {control visualPaginator}
+
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+						<tr>
+							<th></th>
+							<th>Actions</th>
+							<th>unixTime</th>
+							<th>bssid</th>
+							<th>ssid</th>
+							<th>longitude</th>
+							<th>latitude</th>
+							<th>gpsAccurancy</th>
+							<th>apCapabilities</th>
+							<th>channel</th>
+							<th>frequency</th>
+						</tr>
+						</thead>
+						<tfoot>
+						<tr>
+							<th></th>
+							<th>Actions</th>
+							<th>unixTime</th>
+							<th>bssid</th>
+							<th>ssid</th>
+							<th>longitude</th>
+							<th>latitude</th>
+							<th>gpsAccurancy</th>
+							<th>apCapabilities</th>
+							<th>channel</th>
+							<th>frequency</th>
+						</tr>
+						</tfoot>
+						<tbody>
+                        {foreach $list as $item}
+							<tr>
+								<td>{$iterator->getCounter()}</td>
+								<td>
+                                    {*										<a class="ajax" n:href="editWifiList, id=>$item->idWifiList"><img*}
+                                    {*													src="{$basePath}/images/icon/accessories-text-editor.png"/></a>*}
+                                    {*										<a class="delete" n:href="deleteWifiList, id=>$item->idWifiList"><img*}
+                                    {*													src="{$basePath}/images/icon/edit-clear.png"/></a>*}
+								</td>
+								<td>{$item->unixTime}</td>
+								<td>{$item->bssid}</td>
+								<td>{$item->ssid}</td>
+								<td>{$item->longitude}</td>
+								<td>{$item->latitude}</td>
+								<td>{$item->gpsAccurancy}</td>
+								<td>{$item->apCapabilities}</td>
+								<td>{$item->channel}</td>
+								<td>{$item->frequency}</td>
+							</tr>
+                        {/foreach}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+

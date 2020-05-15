@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Model\WifiListModel;
+use ErrorException;
 use Nette;
 
 
@@ -19,29 +21,27 @@ class WifiListService extends BaseService
 		$this->database = $database;
 		$this->setTableName('wifiList');
 	}
-        
-        /**
-         * 
-         * @param type $array
-         * @param type $translatefunction
-         * @return \App\Model\WifiListModel
-         */
+
+	/**
+	 * @param $array
+	 * @param $translatefunction
+	 * @return WifiListModel
+	 */
         public function translateArrayIntoModel($array,$translatefunction){
+			$finalArray = [];
             if (method_exists($this,$translatefunction) == true){
-                $finalArray = [];
                 $nullEmptyArray = $this->nullEmptyValues($array);
                 foreach ($nullEmptyArray as $key=>$item){                    
-                    $finalArray[$this->$translatefunction($key)] = $item;
+                    $finalArray[$this->$translatefunction($key)] = \DevTools::removeBinaryData($item);
                 }
             }                        
-            return new \App\Model\WifiListModel($finalArray);
+            return new WifiListModel($finalArray);
         }
-        
-        /**
-         * 
-         * @param type $array
-         * @return type
-         */
+
+	/**
+	 * @param $array
+	 * @return array
+	 */
         public function nullEmptyValues($array){
             $newArray = [];
             foreach ($array as $key=>$item){
@@ -53,12 +53,11 @@ class WifiListService extends BaseService
             }
             return $newArray;            
         }
-        /**
-         * 
-         * @param type $trackerName
-         * @param type $dbColumnName
-         * @return array
-         */
+
+	/**
+	 * @param null $key
+	 * @return array|mixed
+	 */
         public function wifiTrackerFieldName($key=null){               
             $names = [ 
                 0 => 'unixTime',
@@ -79,17 +78,35 @@ class WifiListService extends BaseService
                                    
             return $names;
         }
-        
-        /**
-         * 
-         * @param type $bssid
-         * @return boolean
-         */
+
+	/**
+	 * @param $bssid
+	 * @return bool
+	 */
         public function checkBssidExist($bssid){            
             $check = $this->getList(['bssid'=>$bssid])->count();            
             if ($check == 0) return true;
             return false;            
         }
+
+	/**
+	 * @param $uploadedFile
+	 * @throws ErrorException
+	 */
+	public function checkUploadedFile($uploadedFile)
+	{
+		if ($uploadedFile != null) {
+			$csv = array_map('str_getcsv', file($uploadedFile));
+			foreach ($csv as $item) {
+				$wifiListModel = ($this->translateArrayIntoModel($item, 'wifiTrackerFieldName'));
+				if ($wifiListModel->getUnixTime() != 'Unix time') {
+					if ($this->checkBssidExist($wifiListModel->getBssid()) == true) {
+						$this->save($wifiListModel);
+					}
+				}
+			}
+		}
+	}
 
 
 }
