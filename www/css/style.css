@@ -15,10 +15,6 @@
     text-align:center
 }
 
-.flash.info{
-    background-color:#f7f7f7;
-}
-
 a[href^="#error:"] {
     background: red;
     color: white;
@@ -46,4 +42,32 @@ a[href^="#error:"] {
     padding: 0 2px;
     font-size: 100%;
     font-weight: bold;
+}
+
+#snippet--flashMessage{
+}
+
+#infoMessages{
+    position:fixed;
+    width:100%;
+    left:0;
+    text-align:center;
+    z-index:999;
+}
+
+#infoMessages .flash{
+padding:15px;
+}
+
+.flash{
+    text-transform: uppercase;
+    font-size:120%;
+}
+
+.flash.info{
+    background-color: #b6c3f7b8;
+}
+
+.flash.error{
+    background-color: rgba(247, 60, 58, 0.72);
 }

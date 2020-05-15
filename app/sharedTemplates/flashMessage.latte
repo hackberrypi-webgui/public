@@ -1,13 +1,10 @@
-<div id="infoMessages">
-    {ifset $flashes}
-		<div class="container-fluid" >
-			<div class="col-xl-12 mb-4 mt-4">
-                {foreach $flashes as $flash}
-					<div class="flash {$flash->type}">{$flash->message}</div>{/foreach}
-			</div>
-		</div>
-    {/ifset}
-</div>
+{ifset $flashes}
+	<div id="infoMessages">
+        {foreach $flashes as $flash}
+			<div class="flash {$flash->type}">{$flash->message}</div>{/foreach}
+
+	</div>
+{/ifset}
 
 
 <script>

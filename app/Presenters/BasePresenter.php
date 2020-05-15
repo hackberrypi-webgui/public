@@ -20,38 +20,19 @@ abstract class BasePresenter extends Presenter {
     /** @persistent */
     public $quickFlash = "";
 
-    /* @var StockService */
-    private $stockService;
-
-    /* @var UserService */
-    protected $userService;
-
     /** @var \App\Forms\FilterFormFactory @inject */
     public $filterFormFactory;
 
     /** @var UploadFileFormFactory @inject */
     public $uploadFileFormFactory;
 
-    protected $currentOrganisationId = 0;
-    protected $organisation;
-
-    protected $root;
-
-    public function getOrganisationId(){
-        return $this->currentOrganisationId;
-    }
-
-    public function setOrganisationId($id){
-        $this->currentOrganisationId = $id;
-    }
-
-
     public function startup() {
        parent::startup();
-
         /* Project settings */
         $this->template->devel = false;
+        $this->template->rootDir = \DevTools::getRootFolder();
     }
+
 
     public function actionDefault(){
         //$this->doLogin();
@@ -61,29 +42,6 @@ abstract class BasePresenter extends Presenter {
         // Init visual paginator
         $control = new VisualPaginator\Control;
         return $control;
-    }
-
-    public function handleProcessAjax(){
-        $httpRequest = $this->getHttpRequest();
-        if ($httpRequest->isMethod('POST')){
-            $body = $this->parseRawBody($httpRequest->getRawBody());
-            $formName = $body['formName'];
-            $selectName = $body['selectName'];
-            $value = $body['value'];
-
-            if ($formName == 'roleOrganisation'){
-                if ($value == 1){
-                    $data = $this->roleOrganisationService->getUserRoleList();
-                }else{
-                    $data = $this->roleOrganisationService->getMemberRoleList();
-                }
-            }elseif($formName == 'editStockItem'){
-                $data = $this->stockService->getNewIc(null,$value);
-            }
-
-
-            $this->sendResponse(new JsonResponse(['formName'=>$formName,'selectName'=>$selectName,'data'=>$data]));
-        }
     }
 
     public function parseRawBody($body){
@@ -118,23 +76,6 @@ abstract class BasePresenter extends Presenter {
                 return 'http://'.$url;
             }
         });
-        $this->template->addFilter('fullname',function ($userId){
-            $user = $this->userService->getBy($userId);
-            return $user['name']." ".$user['surname'];
-        });
-        $this->template->addFilter('userFormat',function($dateTime){
-           $userFormat = $this->userService->getSettings($this->user->getId());
-           return $dateTime->format($userFormat['dateFormat']." ".$userFormat['timeFormat']);
-        });
-        $this->template->addFilter('userDate',function($dateTime){
-            $userFormat = $this->userService->getSettings($this->user->getId());
-            return $dateTime->format($userFormat['dateFormat']);
-        });
-        $this->template->addFilter('userTime',function($dateTime){
-            $userFormat = $this->userService->getSettings($this->user->getId());
-            return $dateTime->format($userFormat['timeFormat']);
-        });
-
     }
 
 }

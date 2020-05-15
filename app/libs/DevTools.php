@@ -48,4 +48,11 @@ class DevTools
 		return $pointArray;
 	}
 
+	/**
+	 * @return mixed
+	 */
+	public static function getRootFolder(){
+		return $_SERVER['HTTP_HOST'] . str_replace('index.php','',$_SERVER['SCRIPT_NAME']);
+	}
+
 }

@@ -1,2 +1,2 @@
-/log/
-/temp/
+/log/*
+/temp/cache/*
