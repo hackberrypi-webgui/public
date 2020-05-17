@@ -147,6 +147,10 @@ class WifiListPresenter extends BasePresenter
 		}
 	}
 
+	public function actionScanWifi($command1d){
+
+	}
+
 	/**
 	 * @param $id
 	 * @throws Nette\Application\AbortException
