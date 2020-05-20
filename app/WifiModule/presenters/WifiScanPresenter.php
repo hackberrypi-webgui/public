@@ -1,6 +1,6 @@
 <?php
 
-namespace App\WifiscanModule\Presenters;
+namespace App\WifiModule\Presenters;
 
 use App\Forms\WifiListFormFactory;
 use App\Forms\UploadFileFormFactory;
@@ -10,7 +10,7 @@ use Nette;
 use App\Model;
 
 
-class WifiSettingsPresenter extends BasePresenter
+class WifiScanPresenter extends BasePresenter
 {
 	/** @persistent */
 	public $lock = 0;

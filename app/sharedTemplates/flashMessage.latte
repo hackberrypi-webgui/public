@@ -6,13 +6,12 @@
 	</div>
 {/ifset}
 
-
 <script>
-  $(function () {
-    setTimeout(function () {
-      $("#infoMessages .flash").fadeOut(800, function () {
-        (this).remove();
-      });
-    }, 3000);
-  });
+  setTimeout(function(){
+    $( "#infoMessages .flash" ).fadeOut( "slow", function() {
+      $(this).remove();
+    });
+
+  },5000);
 </script>
+

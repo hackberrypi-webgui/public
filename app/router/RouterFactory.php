@@ -20,8 +20,8 @@ class RouterFactory {
         define('__WWWDIR__',__DIR__."/../../www");
 
 
-        $project = new RouteList('Wifiscan');
-        $project [] = new Route('wifiscan/<presenter>/<action>[/<id>]', 'WifiList:default');
+        $project = new RouteList('Wifi');
+        $project [] = new Route('wifi/<presenter>/<action>[/<id>]', 'WifiList:default');
         $router[] = $project ;
         
         $project = new RouteList('Codegenerator');

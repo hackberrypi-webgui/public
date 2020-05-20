@@ -1,6 +1,6 @@
 <?php
 
-namespace App\WifiscanModule\Presenters;
+namespace App\WifiModule\Presenters;
 
 use App\Forms\WifiListFormFactory;
 use App\Forms\UploadFileFormFactory;

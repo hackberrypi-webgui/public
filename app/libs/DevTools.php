@@ -55,4 +55,12 @@ class DevTools
 		return $_SERVER['HTTP_HOST'] . str_replace('index.php','',$_SERVER['SCRIPT_NAME']);
 	}
 
+	/**
+	 * @param $shellString
+	 * @return array
+	 */
+	public static function makeOutputLines($shellString){
+		return explode('\n',(substr(json_encode((string)$shellString), 1, -1)));
+	}
+
 }
