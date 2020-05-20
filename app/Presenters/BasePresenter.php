@@ -3,6 +3,7 @@
 namespace App\SharedPresenters;
 
 use App\Forms\UploadFileFormFactory;
+use IPub\VisualPaginator\Control;
 use Nette\Application\Responses\JsonResponse;
 use Nette\Application\UI\Presenter;
 use IPub\VisualPaginator\Components as VisualPaginator;
@@ -40,7 +41,7 @@ abstract class BasePresenter extends Presenter {
 
     protected function createComponentVisualPaginator() {
         // Init visual paginator
-        $control = new VisualPaginator\Control;
+        $control = new Control();
         return $control;
     }
 

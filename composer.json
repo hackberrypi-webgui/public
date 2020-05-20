@@ -33,8 +33,7 @@
 		"tracy/tracy": "^2.4",
 		"dg/adminer-custom": "^1.6",
 		"phpexcel/phpexcel": "^1.7",
-		"ipub/visual-paginator": "@dev",
-		"google/apiclient": "^2.0"
+		"ipub/visual-paginator": "@dev"
 	},
 	"require-dev": {
 		"nette/tester": "^1.6"
