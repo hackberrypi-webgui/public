@@ -6,6 +6,8 @@ class NetDevice
 	private $type;
 	private $state;
 	private $connection;
+	private $ipAddress;
+	private $macAddress;
 
 	/**
 	 * @return mixed
@@ -17,7 +19,7 @@ class NetDevice
 
 	/**
 	 * @param mixed $device
-	 * @return WifiDevice
+	 * @return NetDevice
 	 */
 	public function setDevice($device)
 	{
@@ -35,7 +37,7 @@ class NetDevice
 
 	/**
 	 * @param mixed $type
-	 * @return WifiDevice
+	 * @return NetDevice
 	 */
 	public function setType($type)
 	{
@@ -53,7 +55,7 @@ class NetDevice
 
 	/**
 	 * @param mixed $state
-	 * @return WifiDevice
+	 * @return NetDevice
 	 */
 	public function setState($state)
 	{
@@ -71,13 +73,50 @@ class NetDevice
 
 	/**
 	 * @param mixed $connection
-	 * @return WifiDevice
+	 * @return NetDevice
 	 */
 	public function setConnection($connection)
 	{
 		$this->connection = $connection;
 		return $this;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getIpAddress()
+	{
+		return $this->ipAddress;
+	}
+
+	/**
+	 * @param mixed $ipAddress
+	 * @return NetDevice
+	 */
+	public function setIpAddress($ipAddress)
+	{
+		$this->ipAddress = $ipAddress;
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getMacAddress()
+	{
+		return $this->macAddress;
+	}
+
+	/**
+	 * @param mixed $macAddress
+	 * @return NetDevice
+	 */
+	public function setMacAddress($macAddress)
+	{
+		$this->macAddress = $macAddress;
+		return $this;
+	}
+
 
 
 

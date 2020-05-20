@@ -1,45 +1,30 @@
 <?php
 
+use App\Model\WifiAp;
+
 class ShLibController
 {
 	const SH_DIR = '/var/www/public/app/shLib/';
 
-	const DEVICE = 'DEVICE:';
-	const TYPE = 'TYPE:';
-	const STATE = 'STATE:';
-	const CONNECTION = 'CONNECTION:';
-	const SSID = 'hackberry';
-	const PASS = 'toor1234';
+
+	const SSID_DEFAULT = 'hackberry';
+	const PASS_DEFAULT = 'toor1234';
+	const IP_ADDRESS = 'inet';
+	const MAC_ADDRESS = 'ether';
+
+
+
 
 	/**
 	 * @return array
+	 * @throws Exception
 	 */
 	public function getNetworkDevices()
 	{
-		$networkDevicesString = $this->runBashScript('show_wifi_devices.sh');
+		$networkDevicesString = $this->runBashScript('show_net_devices.sh');
 		$devicesInLines = DevTools::makeOutputLines($networkDevicesString);
-
-		$devices = [];
-		$netDevice = new NetDevice();
-
-		foreach ($devicesInLines as $deviceInLine){
-
-			if (strpos($deviceInLine, self::DEVICE) !== false) {
-				$netDevice->setDevice(trim(str_replace(self::DEVICE,'',$deviceInLine)));
-			}
-			if (strpos($deviceInLine, self::TYPE) !== false) {
-				$netDevice->setType(trim(str_replace(self::TYPE,'',$deviceInLine)));
-			}
-			if (strpos($deviceInLine, self::STATE) !== false) {
-				$netDevice->setState(trim(str_replace(self::STATE,'',$deviceInLine)));
-			}
-			if (strpos($deviceInLine, self::CONNECTION) !== false) {
-				$netDevice->setConnection(trim(str_replace(self::CONNECTION,'',$deviceInLine)));
-				$devices[]=$netDevice;
-				$netDevice = new NetDevice();
-			}
-		}
-		return $devices;
+		$macAndIp = self::getIpAndMac();
+		return ShLibDataShaping::createNetworkDeviceList($devicesInLines,$macAndIp);
 	}
 
 	/**
@@ -51,7 +36,7 @@ class ShLibController
 		if (empty($wlan)){
 			throw new Exception('Empty string!');
 		}
-		$string = 'create_wifi_ap.sh -p ' . self::PASS . ' -s ' . self::SSID . ' -w '.$wlan;
+		$string = 'create_wifi_ap.sh -p ' . self::PASS_DEFAULT . ' -s ' . self::SSID_DEFAULT . ' -w '.$wlan;
 		$scriptOutput = $this->runBashScript($string);
 		return $scriptOutput;
 	}
@@ -65,23 +50,50 @@ class ShLibController
 		if (empty($wlan)){
 			throw new Exception('Empty string!');
 		}
-		$string = 'delete_wifi_ap.sh -s ' . self::SSID . ' -w '.$wlan;
+		$string = 'delete_wifi_ap.sh -s ' . self::SSID_DEFAULT . ' -w '.$wlan;
 		$scriptOutput = $this->runBashScript($string);
 		return $scriptOutput;
 	}
 
-	public function checkWifiAp($wlan){
-
+	/**
+	 * @return array
+	 */
+	public function getWifiAp(){
+		$wifiApString = $this->runBashScript('show_wifi_ap.sh');
+		$wifiApLines = DevTools::makeOutputLines($wifiApString);
+		return ShLibDataShaping::createWifiApsList($wifiApLines);
 	}
 
-	public function getWifiSignal(){
-
-	}
-
+	/**
+	 * @throws Exception
+	 */
 	public function getIpAndMac(){
 		$networkDevicesInfo = $this->runBashScript('ifconfig.sh');
-		dump(DevTools::makeOutputLines($networkDevicesInfo));
-		exit();
+		$devices = [];
+		foreach(DevTools::makeOutputLines($networkDevicesInfo) as $networkDevicesInfoLine){
+			if (strpos($networkDevicesInfoLine, 'flags') !== false) {
+				$networkDevicesInfoLineExplode = explode(': flags',$networkDevicesInfoLine);
+				$devices[] = $networkDevicesInfoLineExplode[0];
+			}
+		}
+
+		$firstCut = [];
+		$devicesInfo = [];
+		foreach ($devices as $device){
+			$devicesInfo[$device]['ip'] = '';
+			$devicesInfo[$device]['mac'] = '';
+
+			$firstCut[$device] = DevTools::getStringBetween($networkDevicesInfo,$device,'RX');
+			if (strpos($firstCut[$device], self::IP_ADDRESS) !== false) {
+				$devicesInfo[$device]['ip'] = trim(DevTools::getStringBetween($firstCut[$device],self::IP_ADDRESS,'netmask'));
+			}
+			if (strpos($firstCut[$device], self::MAC_ADDRESS) !== false) {
+				$devicesInfo[$device]['mac'] = trim(DevTools::getStringBetween($firstCut[$device],self::MAC_ADDRESS,'txqueuelen'));
+			}
+
+		}
+
+		return $devicesInfo;
 	}
 
 

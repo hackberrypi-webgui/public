@@ -3,6 +3,7 @@
 namespace App\WifiModule\Presenters;
 
 use App\SharedPresenters\BasePresenter;
+use Exception;
 
 
 class WifiSettingsPresenter extends BasePresenter
@@ -23,11 +24,16 @@ class WifiSettingsPresenter extends BasePresenter
 		$this->shLibController = new \ShLibController();
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public function actionDefault()
 	{
 		parent::actionDefault();
 
-//		$this->shLibController->getIpAndMac();
+		//$this->shLibController->getIpAndMac();
+		//$this->shLibController->getWifiAp();
+
 		$this->template->devices = $this->shLibController->getNetworkDevices();
 		//$this->te
 	}
@@ -35,7 +41,7 @@ class WifiSettingsPresenter extends BasePresenter
 	/**
 	 * @param $wlan
 	 * @param $state
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function handleSetWlanAsAp($wlan, $state){
 		if ($state == 'disconnected'){

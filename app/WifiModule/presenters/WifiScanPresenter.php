@@ -16,24 +16,26 @@ class WifiScanPresenter extends BasePresenter
 	public $lock = 0;
 	/** @persistent */
 	public $quickFlash = "";
-	/** @var WifiListService @inject */
-	private $wifiListService;
+
+	private $shLibController;
 
 
 	/**
-	 * WifiListPresenter constructor.
-	 * @param WifiListService $wifiListService
+	 * WifiScanPresenter constructor.
 	 */
-	public function __construct(WifiListService $wifiListService)
+	public function __construct()
 	{
 		parent::__construct();
-		$this->wifiListService = $wifiListService;
+		$this->shLibController = new \ShLibController();
 	}
 
 
 	public function actionDefault()
 	{
 		parent::actionDefault();
+		//$this->shLibController->getWifiAp();
+
+		$this->template->wifiAps = $this->shLibController->getWifiAp();;
 	}
 
 	public function startup()

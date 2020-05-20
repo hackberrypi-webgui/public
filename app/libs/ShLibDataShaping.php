@@ -1,0 +1,105 @@
+<?php
+
+
+class ShLibDataShaping
+{
+	const DEVICE = 'DEVICE:';
+	const TYPE = 'TYPE:';
+	const STATE = 'STATE:';
+	const CONNECTION = 'CONNECTION:';
+
+	const INUSE = 'IN-USE:';
+	const SSID = 'SSID:';
+	const MODE = 'MODE:';
+	const CHANNEL = 'CHAN:';
+	const RATE = 'RATE:';
+	const SIGNAL = 'SIGNAL:';
+	const BARS = 'BARS:';
+	const SECURITY = 'SECURITY:';
+
+	/**
+	 * @param $devicesInLines
+	 * @return array
+	 * @throws Exception
+	 */
+	public static function createNetworkDeviceList($devicesInLines, $macAndIp){
+		$devices = [];
+		$netDevice = new NetDevice();
+
+		foreach ($devicesInLines as $deviceInLine){
+			$deviceName = trim(str_replace(self::DEVICE,'',$deviceInLine));
+
+			if (strpos($deviceInLine, self::DEVICE) !== false) {
+				$netDevice->setDevice($deviceName);
+			}
+			if (strpos($deviceInLine, self::TYPE) !== false) {
+				$netDevice->setType(trim(str_replace(self::TYPE,'',$deviceInLine)));
+			}
+			if (strpos($deviceInLine, self::STATE) !== false) {
+				$netDevice->setState(trim(str_replace(self::STATE,'',$deviceInLine)));
+			}
+			if (isset($macAndIp[$deviceName])){
+				$netDevice->setIpAddress($macAndIp[$deviceName]['ip']);
+				$netDevice->setMacAddress($macAndIp[$deviceName]['mac']);
+			}
+
+			if (strpos($deviceInLine, self::CONNECTION) !== false) {
+				$netDevice->setConnection(trim(str_replace(self::CONNECTION,'',$deviceInLine)));
+				$devices[]=$netDevice;
+				$netDevice = new NetDevice();
+			}
+		}
+
+		return $devices;
+	}
+
+	/**
+	 * @param $wifiApLines
+	 * @return array
+	 */
+	public static function createWifiApsList($wifiApLines){
+		$wifiAps = [];
+		$wifiAp = new \WifiAp();
+
+		foreach ($wifiApLines as $wifiApLine){
+
+			if (strpos($wifiApLine, self::INUSE) !== false) {
+				$wifiAp->setInUse(trim(str_replace(self::INUSE,'',$wifiApLine)));
+			}
+
+			if (strpos($wifiApLine, self::SSID) !== false) {
+				$wifiAp->setSsid(trim(str_replace(self::SSID,'',$wifiApLine)));
+			}
+
+			if (strpos($wifiApLine, self::MODE) !== false) {
+				$wifiAp->setMode(trim(str_replace(self::MODE,'',$wifiApLine)));
+			}
+
+			if (strpos($wifiApLine, self::CHANNEL) !== false) {
+				$wifiAp->setChannel(trim(str_replace(self::CHANNEL,'',$wifiApLine)));
+			}
+
+			if (strpos($wifiApLine, self::RATE) !== false) {
+				$wifiAp->setRate(trim(str_replace(self::RATE,'',$wifiApLine)));
+			}
+
+			if (strpos($wifiApLine, self::SIGNAL) !== false) {
+				$wifiAp->setSignal(trim(str_replace(self::SIGNAL,'',$wifiApLine)));
+			}
+
+			if (strpos($wifiApLine, self::BARS) !== false) {
+				$wifiAp->setBars(trim(str_replace(self::BARS,'',$wifiApLine)));
+			}
+
+			if (strpos($wifiApLine, self::SECURITY) !== false) {
+				$wifiAp->setSecurity(trim(str_replace(self::SECURITY,'',$wifiApLine)));
+				$wifiAps[]=$wifiAp;
+				$wifiAp = new \WifiAp();
+			}
+
+		}
+
+		return $wifiAps;
+	}
+
+}

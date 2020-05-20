@@ -11,6 +11,8 @@
 						<tr>
 							<th>Device</th>
 							<th>Type</th>
+							<th>Tcp/Ip</th>
+							<th>Mac</th>
 							<th>State</th>
 							<th>Connection</th>
 						</tr>
@@ -20,13 +22,15 @@
 							<tr>
 								<td>{$device->getDevice()}</td>
 								<td>{$device->getType()}</td>
+								<td>{$device->getIpAddress()}</td>
+								<td>{$device->getMacAddress()}</td>
 								<td>{$device->getState()}</td>
 								<td>{$device->getConnection()}</td>
 							</tr>
                         {/foreach}
 						</tbody>
 					</table>
-					* If device status is <b>unavailable</b> try:
+					* If device state is <b>unavailable</b> try:
 					sudo systemctl disable dhcpcd &&
 					sudo systemctl stop dhcpcd &&
 					sudo apt purge openresolv dhcpcd5 &&
@@ -48,7 +52,7 @@
 						</thead>
 						<tbody>
 						<tr>
-							<td>Set wlan as AP</td>
+							<td>Set wlan as AP (password: toor1234)</td>
 							<td>
 								<div class="btn-group" role="group" aria-label="First group">
                                     {foreach $devices as $device}

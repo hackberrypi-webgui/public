@@ -63,4 +63,23 @@ class DevTools
 		return explode('\n',(substr(json_encode((string)$shellString), 1, -1)));
 	}
 
+	/**
+	 * @param $string
+	 * @param $start
+	 * @param $end
+	 * @return mixed
+	 * @throws Exception
+	 */
+	public static function getStringBetween($string, $start, $end){
+		if (strpos($string, $start) === false) {
+			throw new Exception('String not contain start string');
+		}
+		if (strpos($string, $end) === false) {
+			throw new Exception('String not contain end string');
+		}
+		$cutStartString = explode($start, $string);
+		$cutEndString = explode($end,$cutStartString[1]);
+
+		return $cutEndString[0];
+	}
 }
