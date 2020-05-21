@@ -13,7 +13,9 @@ class WifiSettingsPresenter extends BasePresenter
 	/** @persistent */
 	public $quickFlash = "";
 
-	private $shLibController;
+	//private $shLibController;
+
+	private $bashNetworkController;
 
 	/**
 	 * WifiSettingsPresenter constructor.
@@ -21,7 +23,8 @@ class WifiSettingsPresenter extends BasePresenter
 	public function __construct()
 	{
 		parent::__construct();
-		$this->shLibController = new \ShLibController();
+		//$this->shLibController = new \ShLibController();
+		$this->bashNetworkController = new \BashNetworkController();
 	}
 
 	/**
@@ -34,7 +37,7 @@ class WifiSettingsPresenter extends BasePresenter
 		//$this->shLibController->getIpAndMac();
 		//$this->shLibController->getWifiAp();
 
-		$this->template->devices = $this->shLibController->getNetworkDevices();
+		$this->template->devices = $this->bashNetworkController->getNetworkDevices();
 		//$this->te
 	}
 

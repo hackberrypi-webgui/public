@@ -15,6 +15,9 @@
 							<th>Mac</th>
 							<th>State</th>
 							<th>Connection</th>
+							<th>Phy</th>
+							<th>Driver</th>
+							<th>Chipset</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -26,6 +29,9 @@
 								<td>{$device->getMacAddress()}</td>
 								<td>{$device->getState()}</td>
 								<td>{$device->getConnection()}</td>
+								<td>{$device->getPhy()}</td>
+								<td>{$device->getDriver()}</td>
+								<td>{$device->getChipset()}</td>
 							</tr>
                         {/foreach}
 						</tbody>

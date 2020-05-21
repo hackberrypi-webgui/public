@@ -8,6 +8,9 @@ class NetDevice
 	private $connection;
 	private $ipAddress;
 	private $macAddress;
+	private $chipset;
+	private $driver;
+	private $phy;
 
 	/**
 	 * @return mixed
@@ -116,6 +119,62 @@ class NetDevice
 		$this->macAddress = $macAddress;
 		return $this;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getChipset()
+	{
+		return $this->chipset;
+	}
+
+	/**
+	 * @param mixed $chipset
+	 * @return NetDevice
+	 */
+	public function setChipset($chipset)
+	{
+		$this->chipset = $chipset;
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getDriver()
+	{
+		return $this->driver;
+	}
+
+	/**
+	 * @param mixed $driver
+	 * @return NetDevice
+	 */
+	public function setDriver($driver)
+	{
+		$this->driver = $driver;
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPhy()
+	{
+		return $this->phy;
+	}
+
+	/**
+	 * @param mixed $phy
+	 * @return NetDevice
+	 */
+	public function setPhy($phy)
+	{
+		$this->phy = $phy;
+		return $this;
+	}
+
+
 
 
 

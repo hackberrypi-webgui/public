@@ -72,10 +72,10 @@ class DevTools
 	 */
 	public static function getStringBetween($string, $start, $end){
 		if (strpos($string, $start) === false) {
-			throw new Exception('String not contain start string');
+			throw new Exception('String not contain start string:' . $start . "\n $string");
 		}
 		if (strpos($string, $end) === false) {
-			throw new Exception('String not contain end string');
+			throw new Exception('String not contain end string:' . $end . "\n $string");
 		}
 		$cutStartString = explode($start, $string);
 		$cutEndString = explode($end,$cutStartString[1]);
