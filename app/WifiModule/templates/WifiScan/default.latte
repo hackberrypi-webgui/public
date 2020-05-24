@@ -3,39 +3,15 @@
 <main>
 	<div class="container-fluid">
 		<div class="card mb-4">
-			<div class="card-header"><i class="fas fa-table mr-1"></i>List of wifi aps nearby</div>
+			<div class="card-header"><i class="fas fa-table mr-1"></i>List of wifi aps nearby {if $monitorModeOn}(MONITOR MODE){/if}</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-						<thead>
-						<tr>
-							<th>inUse</th>
-							<th>ssid</th>
-							<th>mode</th>
-							<th>channel</th>
-							<th>rate</th>
-							<th>bars</th>
-							<th>security</th>
-							<th>signal</th>
+					{if $monitorModeOn}
+						{include mode/monitorModeOn.latte}
+					{else}
+                        {include mode/monitorModeOff.latte}
+					{/if}
 
-						</tr>
-						</thead>
-						<tbody>
-                        {foreach $wifiAps as $wifiAp}
-							<tr>
-								<td>{$wifiAp->getInUse()}</td>
-								<td>{$wifiAp->getSsid()}</td>
-								<td>{$wifiAp->getMode()}</td>
-								<td>{$wifiAp->getChannel()}</td>
-								<td>{$wifiAp->getRate()}</td>
-								<td>{$wifiAp->getBars()}</td>
-								<td>{$wifiAp->getSecurity()}</td>
-								<td>{$wifiAp->getSignal()}</td>
-
-							</tr>
-                        {/foreach}
-						</tbody>
-					</table>
 				</div>
 			</div>
 		</div>

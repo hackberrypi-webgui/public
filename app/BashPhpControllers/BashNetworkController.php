@@ -12,6 +12,17 @@ class BashNetworkController extends BaseBashController
 	const IP_ADDRESS = 'inet ';
 	const MAC_ADDRESS = 'ether ';
 
+	private $netDevices = [];
+
+	/**
+	 * BashNetworkController constructor.
+	 * @throws Exception
+	 */
+	public function __construct()
+	{
+		$this->netDevices = $this->getNetworkDevices();
+	}
+
 	/**
 	 * @return array
 	 * @throws Exception
@@ -24,6 +35,20 @@ class BashNetworkController extends BaseBashController
 		$chipsetAndDriver = $this->getChipsetAndDriver();
 		$devicesMode = $this->getDeviceMode();
 		return $this->createNetworkDeviceList($devicesInLines,$macAndIp,$chipsetAndDriver,$devicesMode);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getDevicesInMonitorMode(){
+		$devicesInMonitorMode = [];
+		/** @var NetDevice $netDevice */
+		foreach ($this->netDevices as $netDevice){
+			if ($netDevice->getMode() == 'Monitor'){
+				$devicesInMonitorMode[$netDevice->getDevice()] = $netDevice;
+			}
+		}
+		return $devicesInMonitorMode;
 	}
 
 	/**
