@@ -82,4 +82,16 @@ class DevTools
 
 		return $cutEndString[0];
 	}
+
+	/**
+	 * @param $variable
+	 * @param bool $exit
+	 */
+	public static function wdump($variable, $exit = false){
+		echo "<pre>";
+		print_r($variable);
+		echo "</pre>";
+		if ($exit == true ) exit();
+		return;
+	}
 }

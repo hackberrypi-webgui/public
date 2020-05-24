@@ -1,3 +1,9 @@
+{block head}
+    {include '..\..\..\sharedTemplates\head.latte'}
+    <script type="text/javascript" src="{$basePath}/js/loader.js"></script>
+    <script type="text/javascript">Loader.load()</script>
+{/block}
+
 {block content}
 
 <div id="showMap" style="overflow:hidden; width:100%">

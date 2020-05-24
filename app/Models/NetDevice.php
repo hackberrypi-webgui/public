@@ -11,6 +11,7 @@ class NetDevice
 	private $chipset;
 	private $driver;
 	private $phy;
+	private $mode;
 
 	/**
 	 * @return mixed
@@ -173,6 +174,25 @@ class NetDevice
 		$this->phy = $phy;
 		return $this;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getMode()
+	{
+		return $this->mode;
+	}
+
+	/**
+	 * @param mixed $mode
+	 * @return NetDevice
+	 */
+	public function setMode($mode)
+	{
+		$this->mode = $mode;
+		return $this;
+	}
+
 
 
 

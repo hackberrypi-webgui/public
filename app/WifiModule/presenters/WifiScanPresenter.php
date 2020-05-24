@@ -17,7 +17,6 @@ class WifiScanPresenter extends BasePresenter
 	/** @persistent */
 	public $quickFlash = "";
 
-	//private $shLibController;
 
 	private $bashApController;
 
@@ -28,7 +27,6 @@ class WifiScanPresenter extends BasePresenter
 	public function __construct()
 	{
 		parent::__construct();
-		//$this->shLibController = new \ShLibController();
 		$this->bashApController = new \BashApController();
 	}
 
@@ -36,10 +34,6 @@ class WifiScanPresenter extends BasePresenter
 	public function actionDefault()
 	{
 		parent::actionDefault();
-		//$this->shLibController->getWifiAp();
-
-		//$this->template->wifiAps = $this->shLibController->getChipsetAndDriver();
-
 		$this->template->wifiAps = $this->bashApController->getWifiAp();;
 	}
 

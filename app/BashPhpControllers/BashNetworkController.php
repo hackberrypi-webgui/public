@@ -22,7 +22,8 @@ class BashNetworkController extends BaseBashController
 		$devicesInLines = DevTools::makeOutputLines($networkDevicesString);
 		$macAndIp = $this->getIpAndMac();
 		$chipsetAndDriver = $this->getChipsetAndDriver();
-		return $this->createNetworkDeviceList($devicesInLines,$macAndIp,$chipsetAndDriver);
+		$devicesMode = $this->getDeviceMode();
+		return $this->createNetworkDeviceList($devicesInLines,$macAndIp,$chipsetAndDriver,$devicesMode);
 	}
 
 	/**
@@ -79,7 +80,7 @@ class BashNetworkController extends BaseBashController
 	 * @return array
 	 * @throws Exception
 	 */
-	private function createNetworkDeviceList($devicesInLines, $macAndIp, $chipsetAndDriver){
+	private function createNetworkDeviceList($devicesInLines, $macAndIp, $chipsetAndDriver, $devicesMode){
 		$devices = [];
 		$netDevice = new NetDevice();
 
@@ -104,10 +105,13 @@ class BashNetworkController extends BaseBashController
 				$netDevice->setDriver($chipsetAndDriver[$deviceName]['driver']);
 				$netDevice->setPhy($chipsetAndDriver[$deviceName]['phy']);
 			}
+			if (isset($devicesMode[$deviceName])){
+				$netDevice->setMode($devicesMode[$deviceName]);
+			}
 
 			if (strpos($deviceInLine, self::CONNECTION) !== false) {
 				$netDevice->setConnection(trim(str_replace(self::CONNECTION,'',$deviceInLine)));
-				$devices[]=$netDevice;
+				$devices[$netDevice->getDevice()]=$netDevice;
 				$netDevice = new NetDevice();
 			}
 		}
@@ -141,6 +145,23 @@ class BashNetworkController extends BaseBashController
 		}
 
 		return $devicesInfo;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	private function getDeviceMode(){
+		$deviceModeString = $this->runBashScript('iwconfig.sh');
+
+		$deviceModeExplode = explode('wlan',$deviceModeString);
+		$deviceModes = [];
+		foreach ($deviceModeExplode as $deviceModeLine){
+			if (!empty($deviceModeLine)){
+				$deviceModes['wlan' . substr($deviceModeLine,0,1)] = trim(DevTools::getStringBetween($deviceModeLine,"Mode:"," "));
+			}
+
+		}
+		return $deviceModes;
 	}
 
 

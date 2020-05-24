@@ -2,7 +2,7 @@
 
 <main>
 	<div class="container-fluid">
-		<div class="card mb-4">
+		<div class="card mb-4 mt-4">
 			<div class="card-header"><i class="fas fa-table mr-1"></i>List of network devices</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -18,6 +18,7 @@
 							<th>Phy</th>
 							<th>Driver</th>
 							<th>Chipset</th>
+							<th>Mode</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -32,6 +33,7 @@
 								<td>{$device->getPhy()}</td>
 								<td>{$device->getDriver()}</td>
 								<td>{$device->getChipset()}</td>
+								<td>{$device->getMode()}</td>
 							</tr>
                         {/foreach}
 						</tbody>
@@ -65,8 +67,24 @@
                                         {if $device->getType() == 'wifi'}
 
 											<a class="btn mr-2 {if $device->getState() == 'disconnected'}btn-primary{else}btn-secondary{/if}"
-													n:href="setWlanAsAp! wlan=>$device->getDevice(), state=>$device->getState()"
+													n:href="setWlanAsAp! wlan=>$device->getDevice()"
 											>{$device->getDevice()} | {if $device->getState() == 'disconnected'}ON{else}OFF{/if}</a>
+
+                                        {/if}
+                                    {/foreach}
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Set wlan into monitor mode</td>
+							<td>
+								<div class="btn-group" role="group" aria-label="First group">
+                                    {foreach $devices as $device}
+                                        {if $device->getType() == 'wifi'}
+
+											<a class="btn mr-2 {if $device->getMode() == 'Monitor'}btn-secondary{else}btn-primary{/if}"
+                                                    n:href="setWlanIntoMonitorMode! wlan=>$device->getDevice()"
+											>{$device->getDevice()} | {if $device->getMode() == 'Monitor'}OFF{else}ON{/if}</a>
 
                                         {/if}
                                     {/foreach}
