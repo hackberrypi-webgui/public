@@ -14,6 +14,8 @@ then
  exit
 fi
 
-sudo killall -9 airodump-ng
-sudo airodump-ng -w "../../temp/cache/airodump_$WLAN" --output-format csv --write-interval 1 "$WLAN"&
+#sudo killall -9 airodump-ng
 
+sudo ./set_monitor_mode.sh -w "$WLAN" -m monitor
+sudo rm '../../temp/cache/airodump_*'
+sudo airodump-ng -w "../../temp/cache/airodump_$WLAN" --output-format csv --write-interval 1 "$WLAN" > /dev/null 2>&1 &

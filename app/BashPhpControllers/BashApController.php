@@ -59,15 +59,17 @@ class BashApController extends BaseBashController
 	private function createWifiApsList($wifiApLines){
 		$wifiAps = [];
 		$wifiAp = new \WifiAp();
+		$ssid = [];
 
 		foreach ($wifiApLines as $wifiApLine){
 
-			if (strpos($wifiApLine, self::INUSE) !== false) {
-				$wifiAp->setInUse(trim(str_replace(self::INUSE,'',$wifiApLine)));
+			if (strpos($wifiApLine, self::SSID) !== false) {
+				$currentSsid = trim(str_replace(self::SSID,'',$wifiApLine));
+				$wifiAp->setSsid($currentSsid);
 			}
 
-			if (strpos($wifiApLine, self::SSID) !== false) {
-				$wifiAp->setSsid(trim(str_replace(self::SSID,'',$wifiApLine)));
+			if (strpos($wifiApLine, self::INUSE) !== false) {
+				$wifiAp->setInUse(trim(str_replace(self::INUSE,'',$wifiApLine)));
 			}
 
 			if (strpos($wifiApLine, self::MODE) !== false) {
@@ -92,8 +94,15 @@ class BashApController extends BaseBashController
 
 			if (strpos($wifiApLine, self::SECURITY) !== false) {
 				$wifiAp->setSecurity(trim(str_replace(self::SECURITY,'',$wifiApLine)));
-				$wifiAps[]=$wifiAp;
-				$wifiAp = new \WifiAp();
+
+				if (in_array($currentSsid,$ssid)){
+					$wifiAp = new \WifiAp();
+					continue;
+				}else{
+					$ssid[] = $currentSsid;
+					$wifiAps[]=$wifiAp;
+					$wifiAp = new \WifiAp();
+				}
 			}
 		}
 		return $wifiAps;

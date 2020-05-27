@@ -2,25 +2,53 @@
 
 <main>
 	<div class="container-fluid">
-		<div class="card mb-4">
-			<div class="card-header"><i class="fas fa-table mr-1"></i>List of wifi aps nearby {if $monitorModeOn}(MONITOR MODE){/if}</div>
-			<div class="card-body">
-				<div class="table-responsive">
-					{if $monitorModeOn}
-						{include mode/monitorModeOn.latte}
-					{else}
-                        {include mode/monitorModeOff.latte}
-					{/if}
+		<div class="row mt-4">
+			<div class="col-xl-12 mb-4">
+				<div class="btn-toolbar" role="toolbar" aria-label="Actions">
+					<div class="btn-group" role="group" aria-label="First group">
 
+                        {if $monitorModeOn}
+	                        <a class="btn btn-primary mr-2" n:href="wifiRestart!">Restart airodump-ng and clear cache</a>
+                        {/if}
+
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="card mb-4">
-			<div class="card-header"><i class="fas fa-tools"></i>Settings</div>
+			<div class="card-header"><i class="fas fa-table mr-1"></i>List of wifi aps nearby {if $monitorModeOn}(MONITOR MODE){/if}</div>
 			<div class="card-body">
+                {snippet scanDeviceList}
+					<div class="table-responsive">
+                        {if $monitorModeOn}
+                            {include mode/monitorModeOn.latte}
+                        {else}
+                            {include mode/monitorModeOff.latte}
+                        {/if}
 
+					</div>
+                {/snippet}
 			</div>
 		</div>
+
+
+
+
 	</div>
 </main>
+
+{block scripts}
+	<script>
+      window.onload = function () {
+        refreshList();
+      };
+
+      function refreshList() {
+        $.nette.ajax({
+          url: {link refreshList! monitorModeOn=>$monitorModeOn}
+        });
+        setTimeout(refreshList, 3000);
+      }
+	</script>
+{/block}

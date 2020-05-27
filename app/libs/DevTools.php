@@ -94,4 +94,14 @@ class DevTools
 		if ($exit == true ) exit();
 		return;
 	}
+
+	/**
+	 * @param $array
+	 * @return int|string
+	 */
+	public static function firstKeyInArray($array){
+		foreach ($array as $key=>$item){
+			return $key;
+		}
+	}
 }

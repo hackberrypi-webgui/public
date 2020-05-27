@@ -15,5 +15,11 @@ then
  exit
 fi
 
+if [ -z "$MODE" ]
+then
+ echo "error: -m is mandatory parameter (mode)"
+ exit
+fi
+
 sudo ifconfig "$WLAN" down
 sudo iwconfig "$WLAN" mode "$MODE"

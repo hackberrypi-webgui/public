@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nmcli -m multiline device wifi
+nmcli -m multiline device wifi list rescan

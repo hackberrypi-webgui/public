@@ -75,6 +75,7 @@ class WifiSettingsPresenter extends BasePresenter
 	 * @throws Exception
 	 */
 	public function handleSetWlanIntoMonitorMode($wlan){
+
 		/** @var NetDevice $netDevice */
 		$netDevice = $this->netDevices[$wlan];
 		$output = 'Device ' . $wlan . ' successfully set';
@@ -85,6 +86,7 @@ class WifiSettingsPresenter extends BasePresenter
 			$fm='error';
 		}else{
 			if ($netDevice->getMode() == 'Monitor'){
+				$this->bashMonitorModeController->killProcess('airodump-ng');
 				$this->bashMonitorModeController->setDeviceIntoManagedMode($netDevice->getDevice());
 			}else{
 				$this->bashMonitorModeController->setDeviceIntoMonitorMode($netDevice->getDevice());
@@ -107,6 +109,8 @@ class WifiSettingsPresenter extends BasePresenter
 	{
 		parent::startup();
 	}
+
+
 
 
 
